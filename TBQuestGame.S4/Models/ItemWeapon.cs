@@ -6,29 +6,22 @@ using System.Threading.Tasks;
 
 namespace TBQuestGame.Models
 {
-    public class ItemArmor : GameItem
+    public class ItemWeapon : GameItem
     {
-
         #region ENUMS
 
         #endregion
 
         #region FIELDS
-        private ItemDamageResist _armorResistanceType;
-        private double _armorResistModifier;
+
+
         #endregion
 
         #region PROPERTIES
-        public ItemDamageResist ArmorResistanceType
-        {
-            get { return _armorResistanceType; }
-            set { _armorResistanceType = value; }
-        }
-        public double ArmorResistModifier
-        {
-            get { return _armorResistModifier; }
-            set { _armorResistModifier = value; }
-        }
+
+        public ItemDamageType WeaponDamageType { get; set; }
+        public int WeaponDamageAmount { get; set; }
+
         #endregion
 
         #region CONSTRUCTORS
@@ -43,8 +36,8 @@ namespace TBQuestGame.Models
         /// <param name="name"></param>
         /// <param name="description"></param>
         /// <param name="onUseMessage"></param>
-        public ItemArmor(int id, int value, int uses, ItemUsability reusability, string name, string description, string onUseMessage, bool canBeSold, ItemDamageResist damageResist, double resistanceModifier)
-            : base (id, value, uses, reusability, name, description, onUseMessage, canBeSold)
+        public ItemWeapon(int id, int value, int uses, int weaponDamageAmount, ItemUsability reusability, ItemDamageType weaponDamageType, string name, string description, string onUseMessage, bool canBeSold)
+            : base(id, value, uses, reusability, name, description, onUseMessage, canBeSold)
         {
             ItemId = id;
             ItemValue = value;
@@ -55,8 +48,9 @@ namespace TBQuestGame.Models
             ItemOnUseMessage = onUseMessage;
             CanBeSold = canBeSold;
 
-            ArmorResistanceType = damageResist;
-            ArmorResistModifier = resistanceModifier;
+            WeaponDamageType = weaponDamageType;
+            WeaponDamageAmount = weaponDamageAmount;
+
         }
 
 

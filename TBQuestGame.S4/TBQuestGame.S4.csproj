@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3017EFCA-DB24-4D02-AB8C-61972C11299A}</ProjectGuid>
+    <ProjectGuid>{330C9CBE-397D-4047-8994-D25645AF4BEB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TBQuestGame</RootNamespace>
     <AssemblyName>TBQuestGame</AssemblyName>
@@ -80,14 +80,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Character.cs" />
+    <Compile Include="Models\Fighter.cs" />
     <Compile Include="Models\GameItem.cs" />
     <Compile Include="Models\GameItemQuantity.cs" />
+    <Compile Include="Models\Ifight.cs" />
+    <Compile Include="Models\Imerchant.cs" />
     <Compile Include="Models\ItemArcane.cs" />
     <Compile Include="Models\ItemArmor.cs" />
     <Compile Include="Models\ItemInventory.cs" />
     <Compile Include="Models\ItemWeapon.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Map.cs" />
+    <Compile Include="Models\Merchant.cs" />
+    <Compile Include="Models\Monger.cs" />
     <Compile Include="Models\NPC.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="ObservableObject.cs" />

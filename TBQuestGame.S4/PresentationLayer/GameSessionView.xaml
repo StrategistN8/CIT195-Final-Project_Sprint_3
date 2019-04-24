@@ -1,0 +1,1132 @@
+﻿<Window x:Class="TBQuestGame.PresentationLayer.GameSessionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TBQuestGame.PresentationLayer"
+        mc:Ignorable="d"
+        Title="Tale Of The Monger" WindowStartupLocation="CenterScreen" Height="700" Width="1200">
+    <Window.Resources>
+        <Style x:Key="MasterGridStyle" TargetType="Grid">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="../Art/rockBackground.jpg" Stretch="UniformToFill"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="InnerGridStyle" TargetType="Grid">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <RadialGradientBrush>
+                        <GradientStop Color="DarkSlateGray"  Offset="0"/>
+                        <GradientStop Color="Black" Offset="2"/>
+                    </RadialGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MasterBorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="DarkSlateGray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+           <!-- <Setter Property="CornerRadius" Value="19"/>-->
+            <Setter Property="Margin" Value="3,3,3,3"/>
+        </Style>
+        <Style x:Key="MasterLabelStyle" TargetType="Label">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="Azure"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Opacity" Value="0.15"/>
+            <Setter Property ="FontFamily" Value="Matura MT Script Capitals"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style x:Key="MasterListboxStyle" TargetType="ListBox">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="Azure"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Opacity" Value="0.15"/>
+            <Setter Property ="FontFamily" Value="Matura MT Script Capitals"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style x:Key="MasterTextBoxStyle" TargetType="TextBox">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <RadialGradientBrush>
+                        <GradientStop Color="WhiteSmoke" Offset="0"/>
+                        <GradientStop Color="Gainsboro" Offset="2"/>
+                    </RadialGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border 
+                            Background="{TemplateBinding Background}"   
+                            x:Name="Bd" 
+                            BorderBrush="Black"  
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Opacity" Value="0.4"/>
+            <Setter Property ="FontFamily" Value="Matura MT Script Capitals"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style x:Key="MasterTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <RadialGradientBrush>
+                        <GradientStop Color="WhiteSmoke" Offset="0"/>
+                        <GradientStop Color="Gainsboro" Offset="2"/>
+                    </RadialGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Opacity" Value="0.4"/>
+            <Setter Property ="FontFamily" Value="Matura MT Script Capitals"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style x:Key="MasterButtonStyle" TargetType="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <RadialGradientBrush>
+                        <GradientStop Color="WhiteSmoke" Offset="0"/>
+                        <GradientStop Color="Gainsboro" Offset="2"/>
+                    </RadialGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Opacity" Value="0.5"/>
+            <Setter Property ="FontFamily" Value="Matura MT Script Capitals"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="10px"/>
+        </Style>
+        <Style x:Key="MasterTabStyle" TargetType="TabControl">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="Azure"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Opacity" Value="0.4"/>
+            <Setter Property ="FontFamily" Value="Matura MT Script Capitals"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style x:Key="MasterStackPannelStyle" TargetType="StackPanel">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <RadialGradientBrush>
+                        <GradientStop Color="DarkSlateGray"  Offset="0"/>
+                        <GradientStop Color="Black" Offset="2"/>
+                    </RadialGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <TabControl
+        Width="Auto"
+        Style="{StaticResource MasterTabStyle}"
+        Opacity="100"
+        Background="DarkSlateGray">
+        <!--Location Grid-->
+        <TabItem 
+           Header="Navigation"
+             x:Name="Primary_Tab">
+            <Grid
+               Style="{StaticResource MasterGridStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+        <!-- Navagation Window-->
+            <Border
+            Style="{StaticResource MasterBorderStyle}"
+                Margin="15,11,3,13">
+
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                Orientation="Vertical"
+                Style="{StaticResource MasterStackPannelStyle}">
+
+                <Border
+                    Style="{StaticResource MasterBorderStyle}"
+                    CornerRadius="0"
+                    BorderThickness="3"
+                    Margin="15,15,15,1">
+                    <Image Source="{Binding CurrentLocation.LocationIconDataPath}"
+                           />
+                </Border>
+                <Label
+                    x:Name="lbl_nav_icon"
+                    Content="{Binding CurrentLocation.Name}"
+                    Style="{StaticResource MasterLabelStyle}"
+                    Width="200"
+                    Height="40"
+                    Margin="0,20,0,0"/>
+                <!---Location Description Box-->
+                <TextBox
+                    Grid.Row="1"
+                    x:Name="txbx_location_info_box"
+                    Text="{Binding CurrentLocation.Description, Mode=OneWay}"
+                    Style="{StaticResource MasterTextBoxStyle}"
+                    Width="200"
+                    Height="Auto"
+                    Margin="10,0,10,5"
+                    Padding="1,1,1,1"
+                    HorizontalScrollBarVisibility="Visible"
+                    TextWrapping="Wrap"                
+                />
+
+            </StackPanel>
+            </Border>
+
+        <!-- Navagation Buttons-->
+            <Border
+                Style="{StaticResource MasterBorderStyle}"
+                Grid.Row="1">
+       
+        <!-- Navigation Panel-->        
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Orientation="Vertical"
+            Style="{StaticResource MasterStackPannelStyle}">
+        
+        <!-- Navigation Label-->   
+            <Label
+            x:Name="lbl_nav_controls"
+            Content="Navigation Controls"
+            Style="{StaticResource MasterLabelStyle}"
+            Width="155"
+            Height="Auto"/>
+                
+         <!--Navigation List Box-->
+                <Grid>
+                    <ListBox
+                        ItemsSource="{Binding AccessibleLocations}"
+                        SelectedItem="{Binding CurrentLocationName}"
+                        Style="{StaticResource MasterListboxStyle}"
+                        Width="250"
+                        Height="Auto">
+                    </ListBox>
+                </Grid>
+
+            </StackPanel>
+        </Border>
+      
+        <!-- Story Panel -->
+            <StackPanel
+            x:Name="sp_story"
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal">
+         
+
+               <Border
+                Style="{StaticResource MasterBorderStyle}"
+                CornerRadius="2">
+                <Grid
+                     Width="750"
+                     Style="{StaticResource InnerGridStyle}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Story Text Box -->
+                    <TextBox
+                      x:Name="txbx_story"
+                      Style="{StaticResource MasterTextBoxStyle}"
+                      TextWrapping="Wrap"
+                      VerticalScrollBarVisibility="Visible"
+                      Width="450"
+                      Height="100"
+                      Text="{Binding MessageDisplay, Mode=OneWay}"
+                      Margin="10,0,10,0"
+                      Grid.RowSpan="1"/>
+
+
+
+
+                    <!--Exit Button-->
+                    <Button
+                        x:Name ="btn_exit"
+                        Grid.Column="2"
+                        Grid.Row="2"
+                        Content="Exit"
+                        Style="{StaticResource MasterButtonStyle}"
+                        Width="75"
+                        Height="25" Click="btn_exit_Click"/>
+
+                </Grid>
+            </Border>
+        </StackPanel>
+
+        <!-- Inventory Window-->
+        <Border
+            Style="{StaticResource MasterBorderStyle}"
+            Grid.Row="0"
+            Grid.Column="3"
+            Margin="15,15,15,15">
+
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="3"
+                Orientation="Vertical"
+                Style="{StaticResource MasterStackPannelStyle}">
+        <!-- Location Item Pannel-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+                
+            <Label
+                    Content="Location Details"
+                    Style="{StaticResource MasterLabelStyle}"
+                    Margin="1,2,1,1"/>
+            <TabControl
+                x:Name="LocationInfoTabControl"
+                Width="Auto"
+                MaxHeight="400"
+                Style="{StaticResource MasterTabStyle}"
+                Grid.Row="1">
+                    <TabItem 
+                    Header="Location Items"
+                    x:Name="ItemsInformationTabItem">
+                        <DataGrid
+                            x:Name="LocationItemsDataGrid"
+                            Height="Auto"
+                            ItemsSource="{Binding CurrentLocation.LocationInventory}"
+                            SelectedItem="{Binding CurrentGameItem}"
+                            AutoGenerateColumns="False"
+                            HeadersVisibility="Column">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Header="Name"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemName, Mode=OneWay}"
+                                    Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                    Header="Description"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemDescription, Mode=OneWay}"
+                                    Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                    Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding ="{Binding Quantity, Mode=OneWay}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+            <StackPanel
+                    Orientation="Horizontal">
+                    <Button
+                        x:Name="btn_pick_up"
+                        Content="Pick Up"
+                        Style="{StaticResource MasterButtonStyle}"
+                        HorizontalAlignment="Center"
+                        Height="35"
+                        Width="70"
+                        Click="btn_pick_up_Click"
+                        />
+                </StackPanel>
+                         
+            </StackPanel>
+        </Border>
+
+        <!-- NPC Grid-->
+        <Border
+                Style="{StaticResource MasterBorderStyle}"
+                Grid.Column="1"
+                Grid.Row="0"
+                Margin="10,10,300,10" Grid.ColumnSpan="2">
+            <Grid
+                Style="{StaticResource InnerGridStyle}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Player Inventory -->
+                <TabControl
+                x:Name="PlayerInfoTabControl"
+                Width="Auto"
+                Grid.Row="0"
+                    Style="{StaticResource MasterTabStyle}">
+                    <TabItem 
+                    Header="Arcane Items"
+                    x:Name="ArcaneItemsInformationTabItem">
+                        <DataGrid
+                            x:Name="ArcaneItemsDataGrid"
+                            Height="Auto"
+                            ItemsSource="{Binding Player.ArcaneItems}"
+                            SelectedItem="{Binding CurrentGameItem}"
+                            AutoGenerateColumns="False"
+                            HeadersVisibility="Column">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Header="Name"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemName, Mode=OneWay}"
+                                    Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                    Header="Description"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemDescription, Mode=OneWay}"
+                                    Width="2*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                    Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding ="{Binding Quantity, Mode=OneWay}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem 
+                    Header="Armor"
+                    x:Name="ArmorInformationTabItem">
+                        <DataGrid
+                            x:Name="ArmorItemsDataGrid"
+                            Height="Auto"
+                            ItemsSource="{Binding Player.Armor}"
+                            SelectedItem="{Binding CurrentGameItem}"
+                            AutoGenerateColumns="False"
+                            HeadersVisibility="Column">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Header="Name"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemName, Mode=OneWay}"
+                                    Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                    Header="Description"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemDescription, Mode=OneWay}"
+                                    Width="2*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                    Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding ="{Binding Quantity, Mode=OneWay}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem 
+                    Header="Weapons"
+                    x:Name="WeaponItemsInformationTabItem">
+                        <DataGrid
+                            x:Name="WeaponItemsDataGrid"
+                            Height="Auto"
+                            ItemsSource="{Binding Player.Weapons}"
+                            SelectedItem="{Binding CurrentGameItem}"
+                            AutoGenerateColumns="False"
+                            HeadersVisibility="Column">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Header="Name"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemName, Mode=OneWay}"
+                                    Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                    Header="Description"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemDescription, Mode=OneWay}"
+                                    Width="2*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                    Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding ="{Binding Quantity, Mode=OneWay}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem 
+                    Header="Inventory Items"
+                    x:Name="InventoryItemsInformationTabItem">
+                        <DataGrid
+                            x:Name="InventoryItemsDataGrid"
+                            Height="Auto"
+                            ItemsSource="{Binding Player.InventoryItem}"
+                            SelectedItem="{Binding CurrentGameItem}"
+                            AutoGenerateColumns="False"
+                            HeadersVisibility="Column">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Header="Name"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemName, Mode=OneWay}"
+                                    Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                    Header="Description"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemDescription, Mode=OneWay}"
+                                    Width="2*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style>
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn
+                                    Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding ="{Binding Quantity, Mode=OneWay}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                </TabControl>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Margin="0,10,0,0"
+                    Grid.Row="1">
+                    <Button
+                        x:Name="btn_drop"
+                        Content="Drop"
+                        Style="{StaticResource MasterButtonStyle}"
+                        Margin="0,0,3,0"
+                        Height="35"
+                        Width="70"
+                        Click="btn_drop_Click"
+                        />
+                    <Button
+                        x:Name="btn_use"
+                        Content="Use"
+                        Style="{StaticResource MasterButtonStyle}"
+                        Height="35"
+                        Width="70"
+                        Click="btn_use_Click"
+                        />
+                </StackPanel>
+               
+                <!-- Player Info Panel-->
+                <Border
+                Style="{StaticResource MasterBorderStyle}"
+                CornerRadius="2"
+                    Grid.Column="1">
+                    <Grid
+                     Width="150"
+                     Style="{StaticResource InnerGridStyle}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="10*"/>
+                            </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2"
+                            Content="Player Details"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource MasterLabelStyle}"/>
+                        <StackPanel
+                             Grid.Column="0"
+                             Grid.Row="1">
+                            <!---Player Name Info -->
+                            <Label
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Content="Name:"
+                                Style="{StaticResource MasterLabelStyle}"/>
+                            <!-- Player Race Info-->
+                            <Label
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Content="Race:"
+                                Style="{StaticResource MasterLabelStyle}"/>
+                            <!-- Player Gender Info-->
+                            <Label
+                                Grid.Column="1"
+                                Grid.Row="2"
+                                Content="Gender:"
+                                Style="{StaticResource MasterLabelStyle}"/>
+                            <!-- Player Age -->
+                            <Label
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Content="Age:"
+                            Style="{StaticResource MasterLabelStyle}"/>
+                            <!-- Player Health-->
+                            <Label
+                              Content="Health:"
+                              Style="{StaticResource MasterLabelStyle}"/>
+                            <!---Player Lives (I might change this to time remaining) -->
+                            <Label
+                              Content="Lives:"
+                              Style="{StaticResource MasterLabelStyle}"/>
+                            
+                            <!-- Player XP-->
+                            <Label
+                                Grid.Column="0"
+                                Grid.Row="2"
+                                Content="Experiece:"
+                                Style="{StaticResource MasterLabelStyle}"/>
+                            
+                            <!--Player Wealth-->
+                            <Label
+                               Content="Coinage:"
+                               Style="{StaticResource MasterLabelStyle}"/>
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Column="1"
+                            Grid.Row="1">
+                            
+                            <!---Player Name Info -->
+                            <Label
+                            Grid.Column="1"
+                            Style="{StaticResource MasterLabelStyle}"
+                            Width="Auto"
+                            Height="Auto"
+                            Content="{Binding Player.Name}"/>
+
+                            <!-- Player Race Info-->
+                            <Label
+                            Grid.Column="1"
+                            Style="{StaticResource MasterLabelStyle}"
+                            Width="Auto"
+                            Height="Auto"
+                            Content="{Binding Player.Race}"/>
+
+                            <!-- Player Gender Info-->
+                            <Label
+                            Grid.Column="1"
+                            Style="{StaticResource MasterLabelStyle}"
+                            Width="Auto"
+                            Height="Auto"
+                            Content="{Binding Player.Gender}"/>
+                            
+                            <!--Player Age-->
+                            <Label
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            Style="{StaticResource MasterLabelStyle}"
+                            Width="Auto"
+                            Height="Auto"
+                            Content="{Binding Player.Age}"/>
+
+                            <!-- Player Health-->
+                            <Label
+                             Style="{StaticResource MasterLabelStyle}"
+                             Width="Auto"
+                             Height="Auto"
+                             Content="{Binding Player.Health}"/>
+                            
+                            <!--Lives-->
+                            <Label
+                             Style="{StaticResource MasterLabelStyle}"
+                             Width="Auto"
+                             Height="Auto"
+                             Content="{Binding Player.Lives}"/>
+                            
+                            <!---Player XP-->
+                            <Label
+                             Grid.Column="1"
+                             Style="{StaticResource MasterLabelStyle}"
+                             Height="Auto"
+                             Width="Auto"
+                             Content="{Binding Player.ExperiencePoints}"/>
+                            
+                            <!--Player Wealth-->
+                            <Label
+                             Grid.Column="1"
+                             Style="{StaticResource MasterLabelStyle}"
+                             Height="Auto"
+                             Width="Auto"
+                             Content="{Binding Player.Wealth}"/>
+
+                        </StackPanel>
+                        
+                        
+
+                        
+                        
+                        
+                        
+                    </Grid>
+                </Border>
+
+                <!-- NPC Infobox-->
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    x:Name="lbl_actionbox"
+                    Content="Player Actions"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"/>
+            </Grid>
+        </Border>
+
+    </Grid>
+        </TabItem>
+        <!--Character Grid-->
+        <TabItem
+            Header="NPC"
+            x:Name="NPC_tab">
+            <Grid Style="{StaticResource MasterGridStyle}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>                    
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- NPC Selection Grid-->
+                <Grid
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Style="{StaticResource InnerGridStyle}"
+                    Margin="15,5,15,15">
+                    
+                </Grid>
+
+                <!-- Player Inventory Grid-->
+                <Grid
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource InnerGridStyle}">
+                    
+                    <!-- Containment Grid-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label 
+                            Content="Player Inventory"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Style="{StaticResource MasterLabelStyle}"/>
+                        <TabControl
+                            x:Name="PlayerPlayerInfoTabControl"
+                            Width="Auto"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            Style="{StaticResource MasterTabStyle}">
+                            <TabItem 
+                                Header="Arcane Items"
+                                x:Name="PlayerArcaneItemsInformationTabItem">
+                                <DataGrid
+                                    x:Name="PlayerArcaneItemsDataGrid"
+                                    Height="Auto"
+                                    ItemsSource="{Binding Player.ArcaneItems}"
+                                    SelectedItem="{Binding CurrentGameItem}"
+                                    AutoGenerateColumns="False"
+                                    HeadersVisibility="Column">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                            Header="Name"
+                                            IsReadOnly="True"
+                                            Binding="{Binding GameItem.ItemName, Mode=OneWay}"
+                                            Width="*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                            Header="Description"
+                                            IsReadOnly="True"
+                                            Binding="{Binding GameItem.ItemDescription, Mode=OneWay}"
+                                            Width="2*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                    Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding ="{Binding Quantity, Mode=OneWay}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                            <TabItem 
+                    Header="Armor"
+                    x:Name="PlayerArmorInformationTabItem">
+                                <DataGrid
+                            x:Name="PlayerArmorItemsDataGrid"
+                            Height="Auto"
+                            ItemsSource="{Binding Player.Armor}"
+                            SelectedItem="{Binding CurrentGameItem}"
+                            AutoGenerateColumns="False"
+                            HeadersVisibility="Column">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                    Header="Name"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemName, Mode=OneWay}"
+                                    Width="*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                    Header="Description"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemDescription, Mode=OneWay}"
+                                    Width="2*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                    Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding ="{Binding Quantity, Mode=OneWay}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                            <TabItem 
+                    Header="Weapons"
+                    x:Name="PlayerWeaponItemsTabItem">
+                                <DataGrid
+                            x:Name="PlayerWeaponItemsDataGrid"
+                            Height="Auto"
+                            ItemsSource="{Binding Player.Weapons}"
+                            SelectedItem="{Binding CurrentGameItem}"
+                            AutoGenerateColumns="False"
+                            HeadersVisibility="Column">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                    Header="Name"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemName, Mode=OneWay}"
+                                    Width="*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                    Header="Description"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemDescription, Mode=OneWay}"
+                                    Width="2*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                    Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding ="{Binding Quantity, Mode=OneWay}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                            <TabItem 
+                    Header="Inventory Items"
+                    x:Name="InventoryItemsNPCTabItem">
+                                <DataGrid
+                            x:Name="InventoryItemsDataGridNPCPanel"
+                            Height="Auto"
+                            ItemsSource="{Binding Player.InventoryItem}"
+                            SelectedItem="{Binding CurrentGameItem}"
+                            AutoGenerateColumns="False"
+                            HeadersVisibility="Column">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                    Header="Name"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemName, Mode=OneWay}"
+                                    Width="*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                    Header="Description"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameItem.ItemDescription, Mode=OneWay}"
+                                    Width="2*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                    Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding ="{Binding Quantity, Mode=OneWay}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                    
+                </Grid>
+
+                <!-- NPC Inventory Grid-->
+                <Grid
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Style="{StaticResource InnerGridStyle}">
+                    <!-- Containment Grid-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="0.1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label 
+                            Content="{Binding NPC.Name}"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Style="{StaticResource MasterLabelStyle}"/>
+                        <TabControl
+                            x:Name="NPCTabControl"
+                            Width="Auto"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            Style="{StaticResource MasterTabStyle}">
+                            <TabItem 
+                                Header="Inventory"
+                                x:Name="NPCInventoryTabItem">
+                                <DataGrid
+                                    x:Name="NPCInventoryDataGrid"
+                                    Height="Auto"
+                                    ItemsSource="{Binding NPC.Inventory}"
+                                    SelectedItem="{Binding CurrentNPCGameItem}"
+                                    AutoGenerateColumns="False"
+                                    HeadersVisibility="Column">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                            Header="Name"
+                                            IsReadOnly="True"
+                                            Binding="{Binding GameItem.ItemName, Mode=OneWay}"
+                                            Width="*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                            Header="Description"
+                                            IsReadOnly="True"
+                                            Binding="{Binding GameItem.ItemDescription, Mode=OneWay}"
+                                            Width="2*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style>
+                                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn
+                                    Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding ="{Binding Quantity, Mode=OneWay}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </TabItem>
+                            <TabItem 
+                                Header="Inventory"
+                                x:Name="NPCInfoTabItem">
+                                <!-- Info Panel-->
+                                <Grid
+                                   Width="auto"
+                                   Style="{StaticResource InnerGridStyle}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="10*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel
+                                            Grid.Column="0"
+                                            Grid.Row="1">
+                                        <!---Name Info -->
+                                        <Label
+                                                Grid.Column="0"
+                                                Grid.Row="0"
+                                                Content="Name:"
+                                                Style="{StaticResource MasterLabelStyle}"/>
+                                        <!-- Race Info-->
+                                        <Label
+                                                Grid.Column="0"
+                                                Grid.Row="1"
+                                                Content="Race:"
+                                                Style="{StaticResource MasterLabelStyle}"/>
+                                        <!-- Gender Info-->
+                                        <Label
+                                                Grid.Column="1"
+                                                Grid.Row="2"
+                                                Content="Gender:"
+                                                Style="{StaticResource MasterLabelStyle}"/>
+                                        <!-- Health-->
+                                        <Label
+                                                Content="Health:"
+                                                Style="{StaticResource MasterLabelStyle}"/>
+
+                                        <!--Wealth-->
+                                        <Label
+                                                Content="Coinage:"
+                                                Style="{StaticResource MasterLabelStyle}"/>
+                                    </StackPanel>
+                                    <StackPanel
+                                            Grid.Column="1"
+                                            Grid.Row="1">
+
+                                        <!--- Name Info -->
+                                        <Label
+                                                Grid.Column="1"
+                                                Style="{StaticResource MasterLabelStyle}"
+                                                Width="Auto"
+                                                Height="Auto"
+                                                Content="{Binding NPC.Name}"/>
+
+                                        <!-- Race Info-->
+                                        <Label
+                                                Grid.Column="1"
+                                                Style="{StaticResource MasterLabelStyle}"
+                                                Width="Auto"
+                                                Height="Auto"
+                                                Content="{Binding NPC.Race}"/>
+
+                                        <!-- Gender Info-->
+                                        <Label
+                                                Grid.Column="1"
+                                                Style="{StaticResource MasterLabelStyle}"
+                                                Width="Auto"
+                                                Height="Auto"
+                                                Content="{Binding NPC.Gender}"/>
+
+                                        <!-- Health-->
+                                        <Label
+                                                Style="{StaticResource MasterLabelStyle}"
+                                                Width="Auto"
+                                                Height="Auto"
+                                                Content="{Binding NPC.Health}"/>
+
+                                        <!--Player Wealth-->
+                                        <Label
+                                                Grid.Column="1"
+                                                Style="{StaticResource MasterLabelStyle}"
+                                                Height="Auto"
+                                                Width="Auto"
+                                                Content="Wealth"/>
+                                    </StackPanel>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>
