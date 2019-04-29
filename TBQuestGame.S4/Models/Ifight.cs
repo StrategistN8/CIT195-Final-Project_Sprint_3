@@ -12,11 +12,11 @@ namespace TBQuestGame.Models
 
         GameItem EquippedWeapon { get; set; }
         GameItem EquippedArmor { get; set; }
-
+        int Health { get; set; }
 
         Character.BattleStance Stance { get; set; }
 
-        // Method that controls the battle round:
-        void CycleBattleRound(Character.BattleStance Stance);
+        // Method that :
+        void SetStanceModifier(Ifight attacker, Ifight defender);
     }
 }

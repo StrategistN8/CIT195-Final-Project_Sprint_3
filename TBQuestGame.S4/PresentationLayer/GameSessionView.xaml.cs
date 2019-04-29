@@ -52,5 +52,25 @@ namespace TBQuestGame.PresentationLayer
         {
             _gameSessionViewModel.OnUseGameItem();
         }
+
+        private void btn_npc_tab_flee_Click(object sender, RoutedEventArgs e)
+        {
+            _gameSessionViewModel.PlayerStanceFlee();
+        }
+
+        private void btn_get_next_dialog_Click(object sender, RoutedEventArgs e)
+        {
+           _gameSessionViewModel.OnPlayerTalkTo();
+        }
+
+        private void btn_npc_tab_attack_Click(object sender, RoutedEventArgs e)
+        {
+            _gameSessionViewModel.PlayerStanceAttack();
+        }
+
+        private void btn_npc_tab_defend_Click(object sender, RoutedEventArgs e)
+        {
+            _gameSessionViewModel.PlayerStanceDefend();
+        }
     }
 }

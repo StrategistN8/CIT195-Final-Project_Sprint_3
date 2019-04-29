@@ -20,7 +20,7 @@ namespace TBQuestGame.Models
         #region PROPERTIES
 
         public ItemDamageType WeaponDamageType { get; set; }
-        public int WeaponDamageAmount { get; set; }
+        public double WeaponDamageAmount { get; set; }
 
         #endregion
 
@@ -36,7 +36,7 @@ namespace TBQuestGame.Models
         /// <param name="name"></param>
         /// <param name="description"></param>
         /// <param name="onUseMessage"></param>
-        public ItemWeapon(int id, int value, int uses, int weaponDamageAmount, ItemUsability reusability, ItemDamageType weaponDamageType, string name, string description, string onUseMessage, bool canBeSold)
+        public ItemWeapon(int id, int value, int uses, double weaponDamageAmount, ItemUsability reusability, ItemDamageType weaponDamageType, string name, string description, string onUseMessage, bool canBeSold)
             : base(id, value, uses, reusability, name, description, onUseMessage, canBeSold)
         {
             ItemId = id;

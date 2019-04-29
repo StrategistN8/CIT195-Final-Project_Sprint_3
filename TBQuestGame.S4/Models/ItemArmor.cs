@@ -14,12 +14,12 @@ namespace TBQuestGame.Models
         #endregion
 
         #region FIELDS
-        private ItemDamageResist _armorResistanceType;
+        private ItemDamageType _armorResistanceType;
         private double _armorResistModifier;
         #endregion
 
         #region PROPERTIES
-        public ItemDamageResist ArmorResistanceType
+        public ItemDamageType ArmorResistanceType
         {
             get { return _armorResistanceType; }
             set { _armorResistanceType = value; }
@@ -43,7 +43,7 @@ namespace TBQuestGame.Models
         /// <param name="name"></param>
         /// <param name="description"></param>
         /// <param name="onUseMessage"></param>
-        public ItemArmor(int id, int value, int uses, ItemUsability reusability, string name, string description, string onUseMessage, bool canBeSold, ItemDamageResist damageResist, double resistanceModifier)
+        public ItemArmor(int id, int value, int uses, ItemUsability reusability, string name, string description, string onUseMessage, bool canBeSold, ItemDamageType damageResist, double resistanceModifier)
             : base (id, value, uses, reusability, name, description, onUseMessage, canBeSold)
         {
             ItemId = id;

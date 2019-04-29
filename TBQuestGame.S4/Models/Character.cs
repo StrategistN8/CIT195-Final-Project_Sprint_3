@@ -11,10 +11,11 @@ namespace TBQuestGame.Models
         #region ENUMS
 
         public enum BattleStance{
-
+            NOFIGHT,
             ATTACK,
             DEFEND,
-            FLEE
+            FLEE,
+            AUTOFIGHT,
         }
 
         public enum RaceType
@@ -23,7 +24,9 @@ namespace TBQuestGame.Models
             Nivinite,
             Umene,
             Paupillanth,
-            Primal
+            Primal,
+            Scourge,
+            Monger
         }
 
         #endregion
@@ -79,11 +82,11 @@ namespace TBQuestGame.Models
 
         }
 
-        public Character(string name, RaceType race, int locationId)
+        public Character(int id, string name, RaceType race)
         {
-            _name = name;
-            _race = race;
-            _locationId = locationId;
+            Id = id;
+            Name = name;
+            Race = race;
         }
 
         #endregion

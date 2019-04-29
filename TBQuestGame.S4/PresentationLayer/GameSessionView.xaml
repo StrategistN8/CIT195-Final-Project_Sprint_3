@@ -106,6 +106,22 @@
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontSize" Value="10px"/>
         </Style>
+        <Style x:Key="TabItemButtonStyle" TargetType="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <RadialGradientBrush>
+                        <GradientStop Color="CadetBlue" Offset="0"/>
+                        <GradientStop Color="DarkSlateGray" Offset="2"/>
+                    </RadialGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Opacity" Value="0.5"/>
+            <Setter Property ="FontFamily" Value="Matura MT Script Capitals"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="10px"/>
+        </Style>
         <Style x:Key="MasterTabStyle" TargetType="TabControl">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -125,6 +141,19 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="InnerStackPannelStyle" TargetType="StackPanel">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <RadialGradientBrush>
+                        <GradientStop Color="CadetBlue" Offset="0"/>
+                        <GradientStop Color="SkyBlue" Offset="2"/>
+                    </RadialGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <!--<Setter Property="Opacity" Value="0.8"/>-->
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Width" Value="Auto"/>
+        </Style>
     </Window.Resources>
 
     <TabControl
@@ -132,9 +161,10 @@
         Style="{StaticResource MasterTabStyle}"
         Opacity="100"
         Background="DarkSlateGray">
+       
         <!--Location Grid-->
         <TabItem 
-           Header="Navigation"
+           Header="Main"
              x:Name="Primary_Tab">
             <Grid
                Style="{StaticResource MasterGridStyle}">
@@ -218,7 +248,7 @@
                         SelectedItem="{Binding CurrentLocationName}"
                         Style="{StaticResource MasterListboxStyle}"
                         Width="250"
-                        Height="Auto">
+                        MaxHeight="150">
                     </ListBox>
                 </Grid>
 
@@ -232,11 +262,10 @@
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Orientation="Horizontal">
-         
-
-               <Border
-                Style="{StaticResource MasterBorderStyle}"
-                CornerRadius="2">
+                
+                <Border
+                    Style="{StaticResource MasterBorderStyle}"
+                    CornerRadius="2">
                 <Grid
                      Width="750"
                      Style="{StaticResource InnerGridStyle}">
@@ -247,7 +276,8 @@
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <!-- Story Text Box -->
+                    
+                <!-- Story Text Box -->
                     <TextBox
                       x:Name="txbx_story"
                       Style="{StaticResource MasterTextBoxStyle}"
@@ -258,9 +288,6 @@
                       Text="{Binding MessageDisplay, Mode=OneWay}"
                       Margin="10,0,10,0"
                       Grid.RowSpan="1"/>
-
-
-
 
                     <!--Exit Button-->
                     <Button
@@ -367,7 +394,7 @@
             </StackPanel>
         </Border>
 
-        <!-- NPC Grid-->
+        <!-- Player Info Grid-->
         <Border
                 Style="{StaticResource MasterBorderStyle}"
                 Grid.Column="1"
@@ -727,20 +754,12 @@
                         
                     </Grid>
                 </Border>
-
-                <!-- NPC Infobox-->
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    x:Name="lbl_actionbox"
-                    Content="Player Actions"
-                    VerticalContentAlignment="Center"
-                    HorizontalContentAlignment="Center"/>
             </Grid>
         </Border>
 
     </Grid>
         </TabItem>
+        
         <!--Character Grid-->
         <TabItem
             Header="NPC"
@@ -755,16 +774,164 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+                                                
                 <!-- NPC Selection Grid-->
                 <Grid
                     Grid.Row="0"
                     Grid.Column="1"
                     Style="{StaticResource InnerGridStyle}"
                     Margin="15,5,15,15">
+
+                    <!-- Selection List Buttons-->
+                    <Border
+                        Style="{StaticResource MasterBorderStyle}"
+                        Grid.Row="1">
+                        
+                        <!-- NPC Panel-->
+                        <StackPanel
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Orientation="Vertical"
+                            Style="{StaticResource MasterStackPannelStyle}">
+
+                            <!--NPC Image Stackpannel-->
+                            <StackPanel>
+                                <Border
+                                 Style="{StaticResource MasterBorderStyle}"
+                                 CornerRadius="5"
+                                 BorderThickness="3"
+                                 Margin="100,50,100,1"
+                                 Background="DarkSlateGray">
+                                    <Image Source="{Binding CurrentNPC.ImageDataPath}"
+                                      MaxHeight="200"
+                                      MaxWidth="200"/>
+                                </Border>
+                            </StackPanel>
+
+                            <!-- NPC Selection Label-->
+                            <Label
+                                x:Name="lbl_npc_selection"
+                                Content="Nearby Individuals"
+                                Style="{StaticResource MasterLabelStyle}"
+                                Width="155"
+                                Height="Auto"/>
+
+                            <!--NPC Selection Box-->
+                            <ListBox
+                                    ItemsSource="{Binding CurrentLocation.LocationNPCs}"
+                                    SelectedItem="{Binding CurrentNPC}"
+                                    Style="{StaticResource MasterListboxStyle}"
+                                    Width="250"
+                                    MaxHeight="150">
+                                </ListBox>
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+                
+                <!-- NPC Actions Tab -->
+                <Grid
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Style="{StaticResource InnerGridStyle}">
+
+                    <TabControl
+                        Style="{StaticResource MasterTabStyle}">
+
+                        <TabItem
+                            Header="Communication">
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Style="{StaticResource InnerStackPannelStyle}">
+                                <Button
+                                    x:Name="btn_get_next_dialog"
+                                    Content="Speak To"
+                                    Style="{StaticResource MasterButtonStyle}"
+                                    Width="75"
+                                    Height="35"
+                                    Margin="10,0,10,0"
+                                    Click="btn_get_next_dialog_Click"/>
+                                <TextBox
+                                x:Name="txbx_NPC_dialog"
+                                Style="{StaticResource MasterTextBoxStyle}"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Visible"
+                                Width="450"
+                                Height="100"
+                                Text="{Binding MessagesNPC, Mode=OneWay}"
+                                Margin="10,0,10,0"
+                                Grid.RowSpan="1"/>
+                                
+                            </StackPanel>
+                            
+                            
+                        </TabItem>
+                        
+                        <TabItem
+                            Header="Trade">
+                        </TabItem>
+
+                        <TabItem
+                            Header="Battle">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid
+                                    Grid.Column="1">
+                                    <TextBox
+                                    Style="{StaticResource MasterTextBoxStyle}"
+                                    Background="DarkSlateBlue"
+                                    Text="{Binding CombatLog}"
+                                    Width="300"
+                                    MaxHeight="105"
+                                    VerticalAlignment="Center"
+                                    Margin="10"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Visible"
+                                    />
+                                </Grid>
+                                <StackPanel 
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+
+                                    <!-- Attack Button -->
+                                    <Button 
+                                x:Name="btn_npc_tab_attack"
+                                Content="Attack"
+                                Style="{StaticResource TabItemButtonStyle}"
+                                Width="75"
+                                Height="30"
+                                Click="btn_npc_tab_attack_Click"/>
+
+                                    <!-- Defend -->
+                                    <Button 
+                                x:Name="btn_npc_tab_defend"
+                                Content="Defend"
+                                Style="{StaticResource TabItemButtonStyle}"
+                                Width="75"
+                                Height="30"
+                                Click="btn_npc_tab_defend_Click"/>
+
+                                    <!-- FLEE! -->
+                                    <Button 
+                                x:Name="btn_npc_tab_flee"
+                                Content="Flee!"
+                                Style="{StaticResource TabItemButtonStyle}"
+                                Width="75"
+                                Height="30"
+                                Click="btn_npc_tab_flee_Click"/>
+
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                        
+                    </TabControl>
+                    
                     
                 </Grid>
-
+                
                 <!-- Player Inventory Grid-->
                 <Grid
                     Grid.Row="0"
@@ -962,12 +1129,41 @@
                     
                 </Grid>
 
+                <!-- Inventory Actions-->
+                <Grid
+                    Style="{StaticResource InnerGridStyle}"
+                    Grid.Row="1">
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <!-- Trade Item Button -->
+                        <Button 
+                            x:Name="btn_trade_item"
+                            Content="Trade"
+                            Style="{StaticResource MasterButtonStyle}"
+                            Height="35"
+                            Width="70"
+                            Margin="1,1,10,1">
+                        </Button>
+                        
+                        <!-- Use Item Button -->
+                        <Button
+                            x:Name="btn_npc_tab_use_item"
+                            Content="Use"
+                            Style="{StaticResource MasterButtonStyle}"
+                                Height="35"
+                                Width="70"
+                                Click="btn_use_Click"/>
+                    </StackPanel>
+                </Grid>
+                
                 <!-- NPC Inventory Grid-->
                 <Grid
                     Grid.Row="0"
                     Grid.Column="2"
                     Style="{StaticResource InnerGridStyle}">
-                    <!-- Containment Grid-->
+                    
+                <!-- Containment Grid-->
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.1*"/>
@@ -979,7 +1175,7 @@
                             <ColumnDefinition Width="0.1*"/>
                         </Grid.ColumnDefinitions>
                         <Label 
-                            Content="{Binding NPC.Name}"
+                            Content="{Binding CurrentNPC.Name}"
                             Grid.Row="0"
                             Grid.Column="1"
                             Style="{StaticResource MasterLabelStyle}"/>
@@ -989,6 +1185,21 @@
                             Grid.Column="1"
                             Grid.Row="1"
                             Style="{StaticResource MasterTabStyle}">
+                        <!--Description Tab-->
+                            <TabItem 
+                                Header="Info"
+                                x:Name="NPCInfoTabItem">
+                                <StackPanel
+                                    Style="{StaticResource InnerStackPannelStyle}">
+                                    <TextBox
+                                    Style="{StaticResource MasterTextBoxStyle}"
+                                    Width="Auto"
+                                    MaxHeight="200"
+                                    Text="{Binding CurrentNPC.Description, Mode=OneWay}"
+                                    TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </TabItem>
+                         <!--Inventory-->  
                             <TabItem 
                                 Header="Inventory"
                                 x:Name="NPCInventoryTabItem">
@@ -1030,9 +1241,10 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </TabItem>
+                          <!--Stats Tab -->
                             <TabItem 
-                                Header="Inventory"
-                                x:Name="NPCInfoTabItem">
+                                Header="Stats"
+                                x:Name="NPCStatsTabItem">
                                 <!-- Info Panel-->
                                 <Grid
                                    Width="auto"
@@ -1060,22 +1272,19 @@
                                                 Grid.Row="1"
                                                 Content="Race:"
                                                 Style="{StaticResource MasterLabelStyle}"/>
-                                        <!-- Gender Info-->
-                                        <Label
-                                                Grid.Column="1"
-                                                Grid.Row="2"
-                                                Content="Gender:"
-                                                Style="{StaticResource MasterLabelStyle}"/>
                                         <!-- Health-->
                                         <Label
                                                 Content="Health:"
                                                 Style="{StaticResource MasterLabelStyle}"/>
 
                                         <!--Wealth-->
+                                        <!--
                                         <Label
                                                 Content="Coinage:"
-                                                Style="{StaticResource MasterLabelStyle}"/>
+                                                Style="{StaticResource MasterLabelStyle}"/> -->
                                     </StackPanel>
+
+                                    <!-- Binding for NPC Stat Boxes -->
                                     <StackPanel
                                             Grid.Column="1"
                                             Grid.Row="1">
@@ -1086,7 +1295,7 @@
                                                 Style="{StaticResource MasterLabelStyle}"
                                                 Width="Auto"
                                                 Height="Auto"
-                                                Content="{Binding NPC.Name}"/>
+                                                Content="{Binding CurrentNPC.Name}"/>
 
                                         <!-- Race Info-->
                                         <Label
@@ -1094,30 +1303,21 @@
                                                 Style="{StaticResource MasterLabelStyle}"
                                                 Width="Auto"
                                                 Height="Auto"
-                                                Content="{Binding NPC.Race}"/>
-
-                                        <!-- Gender Info-->
-                                        <Label
-                                                Grid.Column="1"
-                                                Style="{StaticResource MasterLabelStyle}"
-                                                Width="Auto"
-                                                Height="Auto"
-                                                Content="{Binding NPC.Gender}"/>
-
+                                                Content="{Binding CurrentNPC.Race}"/>
+                                       
                                         <!-- Health-->
-                                        <Label
+                                        <ProgressBar
+                                            Value="{Binding CurrentNPC.Health}"
+                                            Foreground="CadetBlue"
+                                            Background="DarkSlateBlue"
+                                            Height="10"
+                                            Width="80"
+                                            BorderBrush="AliceBlue"/>
+                                        <!--<Label
                                                 Style="{StaticResource MasterLabelStyle}"
                                                 Width="Auto"
                                                 Height="Auto"
-                                                Content="{Binding NPC.Health}"/>
-
-                                        <!--Player Wealth-->
-                                        <Label
-                                                Grid.Column="1"
-                                                Style="{StaticResource MasterLabelStyle}"
-                                                Height="Auto"
-                                                Width="Auto"
-                                                Content="Wealth"/>
+                                                Content="{Binding CurrentNPC.Health}"/>-->
                                     </StackPanel>
                                 </Grid>
                             </TabItem>
@@ -1125,7 +1325,23 @@
                     </Grid>
 
                 </Grid>
+                
+                <!-- Exit Grid -->
+                <Grid
+                    Grid.Column="2"
+                    Grid.Row="2"
+                    Style="{StaticResource InnerGridStyle}">
 
+                    <!--Exit Button-->
+                    <Button
+                        x:Name ="btn_npc_exit"
+                        Grid.Column="2"
+                        Grid.Row="2"
+                        Content="Exit"
+                        Style="{StaticResource MasterButtonStyle}"
+                        Width="75"
+                        Height="25" Click="btn_exit_Click"/>
+                </Grid>
             </Grid>
         </TabItem>
     </TabControl>

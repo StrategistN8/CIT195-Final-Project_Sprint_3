@@ -17,9 +17,12 @@ namespace TBQuestGame.Models
 
         #region FIELDS
 
-        private ObservableCollection<GameItemQuantity> _inventory;
-        private string  _description;
-        private string _info;
+        protected ObservableCollection<GameItemQuantity> _inventory;
+        protected int _health;
+        protected string  _description;
+        protected string _info;
+        protected string _imageDataPath;
+
         #endregion
 
         #region PROPERTIES
@@ -39,15 +42,45 @@ namespace TBQuestGame.Models
             get { return _description; }
             set { _description = value; }
         }
+        public string ImageDataPath
+        {
+            get { return _imageDataPath; }
+            set { _imageDataPath = value; }
+        }
+        public int Health
+        {
+            get { return _health; }
+            set { _health = value; }
+        }
         #endregion
 
         #region CONSTRUCTORS
+
+        public NPC(int id, int hp, string name, string description, RaceType race, BattleStance initialStance, string imgDataPath)
+            : base(id, name, race)
+        {
+            _name = name;
+            _description = description;
+            _race = race;
+            _inventory = new ObservableCollection<GameItemQuantity>();
+            _imageDataPath = imgDataPath;
+            _health = hp;
+        }
 
         #endregion
 
         #region METHODS
 
         protected abstract string NPCInfo();
+        
+        /// <summary>
+        /// Temporary until I find a better solution:
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return _name;
+        }
 
         #endregion
 

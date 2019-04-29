@@ -99,6 +99,10 @@ namespace TBQuestGame.DataLayer
                 LocationMessage = "",
                 LocationIconDataPath = "../Art/SmashedWagon.png",
                 HealthModifier = 0,
+                LocationNPCs = new ObservableCollection<NPC>
+                {
+                   GetNPCById(1) 
+                },
                 LocationInventory = new ObservableCollection<GameItemQuantity>
                 {
                     new GameItemQuantity(GetGameItemById(1000), 3),
@@ -143,6 +147,9 @@ namespace TBQuestGame.DataLayer
                 LocationMessage = "",
                 LocationIconDataPath = "../Art/Forest.jpg",
                 HealthModifier = 0,
+                LocationNPCs = new ObservableCollection<NPC>{
+                    GetNPCById(2)
+                },
                 LocationInventory = new ObservableCollection<GameItemQuantity>
                 {
                     new GameItemQuantity(GetGameItemById(1000), 1),
@@ -157,14 +164,20 @@ namespace TBQuestGame.DataLayer
             new Location()
             {
                 LocationId = 4,
-                Name = "Thalma's Tent",
-                Description = "Thalma is a Primal shepherdess who was accompanying the carvan. Her tent was pitched on the outskirts of the carvan when " +
-                "the Monger struck, saving it from the brunt of the attack. The same can not be said of her sled, which was one of the things reduced to kindling by the monster...",
+                Name = "Primal Encampment",
+                Description = "A clan of Primal shepherds had been accompanying the cavan to the capital for trade. The Monger attacked while the Primal were out tending to their flocks, allowing to to ramage unopposed through the camp before turning to the caravano was accompanying the carvan." +
+                "Most of the camp has been picked up and several Primal have left to help the Eronites at the caravan, save for a few guards.",
                 IsAccessible = true,
                 XPModifier = 10,
                 LocationMessage = "",
                 LocationIconDataPath = "../Art/Forest.jpg",
                 HealthModifier = 0,
+                LocationNPCs = new ObservableCollection<NPC>{
+                    GameData.GetNPCById(3),
+                    GameData.GetNPCById(4),
+                    GameData.GetNPCById(5),
+                    
+                },
                 LocationInventory = new ObservableCollection<GameItemQuantity>
                 {
                     new GameItemQuantity(GetGameItemById(3001), 3),
@@ -188,6 +201,10 @@ namespace TBQuestGame.DataLayer
                 LocationMessage = "",
                 LocationIconDataPath = "../Art/Forest.jpg",
                 HealthModifier = 0,
+                LocationNPCs = new ObservableCollection<NPC>
+                {
+
+                },
                 LocationInventory = new ObservableCollection<GameItemQuantity>
                 {
                     new GameItemQuantity(GetGameItemById(1000),3),
@@ -235,28 +252,100 @@ namespace TBQuestGame.DataLayer
                 new ItemArcane(4001, 1000, 5, GameItem.ItemUsability.LIMITED, "Whistle of the Forestborne", "An ornate wooden whistle decorated with Primal runes and symbols. Those who use it might find their songs answered...", "You play the whistle and feel strangely better.", false, ItemArcane.ArcaneEffect.HEALPLAYER, 5),
 
                 new ItemWeapon(3000,0,1,0,GameItem.ItemUsability.MULTIPLE,GameItem.ItemDamageType.BLUDGONING, "Thamla's Bolas", "A finely crafted Primal bolas for capturing Groats.", "You hurl the bolas at the target!", false),
-                new ItemWeapon(3001, 25, 1, 30, GameItem.ItemUsability.ONCE, GameItem.ItemDamageType.TOXIC, "Jar of Acridmorbi", "Acridmorbi are especially aggressive aerial arthropods with a painful sting and very sharp jaws. They make for an excellent weapon when trapped in clay pots and thrown at the foe.", "You equip one of the pots.", true),
-                new ItemWeapon(3002, 50,1,40, GameItem.ItemUsability.MULTIPLE, GameItem.ItemDamageType.SLASHING, "Sword", "A forged sword of the sort commonly seen around Eron and surrounding territories.", "You equip the sword.", true),
+                new ItemWeapon(3001, 25, 1, 10, GameItem.ItemUsability.ONCE, GameItem.ItemDamageType.TOXIC, "Jar of Acridmorbi", "Acridmorbi are especially aggressive aerial arthropods with a painful sting and very sharp jaws. They make for an excellent weapon when trapped in clay pots and thrown at the foe.", "You equip one of the pots.", true),
+                new ItemWeapon(3002, 50,1,30, GameItem.ItemUsability.MULTIPLE, GameItem.ItemDamageType.SLASHING, "Sword", "A forged sword of the sort commonly seen around Eron and surrounding territories.", "You equip the sword.", true),
+                new ItemWeapon(3003, 50,1,30, GameItem.ItemUsability.MULTIPLE, GameItem.ItemDamageType.ARCANE, "Torch", "A flaming torch more commonly used to light the way.", "You equip the torch.", true),
 
-                new ItemArmor (2000,0,1,GameItem.ItemUsability.MULTIPLE,"Armor of the Keeper","This otherworldly armor appears oddly organic in design despite being made of metal.","You don the strange armor.", false, GameItem.ItemDamageResist.ARCANE, 0.9),
-                new ItemArmor (2001,100,1,GameItem.ItemUsability.MULTIPLE, "Guardian Armor", "Standard-issue body armor among the Eronites. It was originally created for the citizen militia and is designed to protect against ranged projectiles.", "You equip the armor.", true, GameItem.ItemDamageResist.PIERCING, 0.25),
+                new ItemArmor (2000,0,1,GameItem.ItemUsability.MULTIPLE,"Armor of the Keeper","This otherworldly armor appears oddly organic in design despite being made of metal.","You don the strange armor.", false, GameItem.ItemDamageType.ARCANE, 0.9),
+                new ItemArmor (2001,100,1,GameItem.ItemUsability.MULTIPLE, "Guardian Armor", "Standard-issue body armor among the Eronites. It was originally created for the citizen militia and is designed to protect against ranged projectiles.", "You equip the armor.", true, GameItem.ItemDamageType.PIERCING, 0.25),
 
                 new ItemInventory(1000,1,1,GameItem.ItemUsability.ONCE, "1 Tals Coin", "The Tals is the standard form of currency in Eron, though many neighbors also honor it. This coin is worth 1 Tals", "You flip a coin for your amusement.", true),
                 new ItemInventory(1001, 10,1, GameItem.ItemUsability.ONCE, "10 Tals Coin","The Tals is the standard form of currency in Eron, though many neighbors also honor it. This coin is worth 10 Tals", "You flip a coin for your amusement.", true ),
 
-                new ItemArmor(0001, 0, 1, GameItem.ItemUsability.MULTIPLE, "Tunic", "A simple tunic that protects the modesty of the wearer and little else.", "", false, GameItem.ItemDamageResist.BLUDGONING, 0.01),                                              // These are the "default" items for the equipment slots.
-                new ItemWeapon(0002, 0, 1, 5, GameItem.ItemUsability.MULTIPLE, GameItem.ItemDamageType.BLUDGONING, "Fists", "If you are forced to fight with your fists, something has gone very wrong...", "", false ) // If the player drops the last instance of whatever they are equipped with
-                                                                                                                                                                                                                        // these will drop in as placeholders to avoid a null reference error.
+                // Generic Weapons and Armor - only used for defaults, they should never appear in inventory:
+                new ItemArmor(0001, 0, 1, GameItem.ItemUsability.MULTIPLE, "Tunic", "A simple tunic that protects the modesty of the wearer and little else.", "", false, GameItem.ItemDamageType.BLUDGONING, 0.01), // These are the "default" items for the equipment slots.
+                new ItemWeapon(0002, 0, 1, 5, GameItem.ItemUsability.MULTIPLE, GameItem.ItemDamageType.BLUDGONING, "Fists", "If you are forced to fight with your fists, something has gone very wrong...", "", false ), // If the player drops the last instance of whatever they are equipped with
+                new ItemWeapon(0003, 0, 1, 10, GameItem.ItemUsability.MULTIPLE, GameItem.ItemDamageType.SLASHING, "Monger Claws", "The talons on the Monger's forelimbs are as sharp as blades and adept at tearing flesh", "", false),                                                                                                                                                                                               // these will drop in as placeholders to avoid a null reference error.
+                new ItemArmor(0004, 0, 1, GameItem.ItemUsability.MULTIPLE, "Monger Hide", "The leathery hide of the Monger is supremely resistant to blades and claws.", "", false, GameItem.ItemDamageType.SLASHING, 0.1)
             };
 
         }
 
+        public static List<NPC> StandardNPC()
+        {
+            return new List<NPC>()
+            {
+                new Monger(1, 1000, "The Monger", " The terrible beast that attacked the carvan! Dare you face it or do you flee?", GetGameItemById(0004) as ItemArmor,  GetGameItemById(0003) as ItemWeapon, Character.RaceType.Monger, Character.BattleStance.DEFEND, "../Art/MongerB.png"),
+                new Merchant(02, 200, "The Keeper", "The Keeper is a strange creature traveling with the caravan for reasons of their own. Their wares are among the most exotic to be found, but they fetch a high price...", Character.RaceType.Scourge, Character.BattleStance.NOFIGHT,"../Art/Keeper.png", new List<string>{
+                    "Ah, Keeper expected you. We have things that might aid you.",
+                    "Keeper finds things others don't want. Mayhaps it might be of use to you?",
+                    "We are the Keeper.",
+                    "Monger bad for business..." }),
+                new Fighter(03, 200, "Thalmos", "", GameData.GetGameItemById(0001) as ItemArmor, GameData.GetGameItemById(3003) as ItemWeapon,  Character.RaceType.Primal, Character.BattleStance.NOFIGHT,"../Art/ThalmosA.png"),
+                new Fighter(04, 200, "Kalmas", "", GameData.GetGameItemById(0001) as ItemArmor, GameData.GetGameItemById(3002) as ItemWeapon, Character.RaceType.Primal, Character.BattleStance.NOFIGHT,"../Art/PrimalB.png"),
+                new Merchant(05, 200, "Sobek", "One of the Primal elders. He might have some things to say.", Character.RaceType.Primal, Character.BattleStance.NOFIGHT,"../Art/PrimalC.png",  new List<string>
+                {
+                        "This is dreadful!",
+                        "While these woods are far from tame, such foul creatures rarely emerge on their own accord. I fear something terrible is afoot here. ",
+                        "While few beasts of nature can rival a Monger for strength, their main weapon is the insidious fumes concealed within their mantle. If you intend to confront the beast, you must find some means of defending yourself from them. "
+                }
+                ),
+                new Monger(13, 1000, "The Monger", " The terrible beast in its lair!", GetGameItemById(0004) as ItemArmor,  GetGameItemById(0003) as ItemWeapon, Character.RaceType.Monger, Character.BattleStance.ATTACK, "../Art/MongerB.png"),
+
+            };
+
+        }
+
+
+        #region HELPER METHODS: 
+
+        /// <summary>
+        /// Method that looks for a game item by its ID number.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static GameItem GetGameItemById(int id)
         {
             return StandardGameItems().FirstOrDefault(i => i.ItemId == id);
         }
 
+        /// <summary>
+        /// Method that looks for a NPC by its ID number.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static NPC GetNPCById(int id)
+        {
+            return StandardNPC().FirstOrDefault(i => i.Id == id);
+        }
 
+
+        public static List<string> PopulateRaceBox()
+        {
+            // Creating data for the dropboxes:
+            List<string> races = Enum.GetNames(typeof(Player.RaceType)).ToList();
+
+            // We don't want scourge or monger to be playable
+            races.Remove("Scourge");
+            races.Remove("Monger");
+
+
+            return races;
+            
+        }
+
+        public static List<string> PopulateGenderBox()
+        {
+            List<string> gender = Enum.GetNames(typeof(Player.PlayerGender)).ToList();
+            return gender;
+        }
+        
+        public static List<string> PopulateRoleBox()
+        {
+            List<string> role = Enum.GetNames(typeof(Player.PlayerRole)).ToList();
+            return role;
+        }
+        #endregion
     }
 }
 

@@ -9,7 +9,7 @@ using TBQuestGame.PresentationLayer;
 
 namespace TBQuestGame.Models
 {
-    public class Player : Character, Ifight, Imerchant
+    public class Player : Character, Ifight, Itrade
     {
 
         #region ENUMS
@@ -45,7 +45,6 @@ namespace TBQuestGame.Models
         private ObservableCollection<GameItemQuantity> _armor;
         private ObservableCollection<GameItemQuantity> _weapons;
         private ObservableCollection<GameItemQuantity> _inventoryItem;
-        private BattleStance _stance;
 
         #endregion
 
@@ -141,7 +140,7 @@ namespace TBQuestGame.Models
             get { return _arcaneItems; }
             set { _arcaneItems = value; }
         }
-        public BattleStance Stance {get; set;}
+        public BattleStance Stance { get; set; }
 
         #endregion
 
@@ -160,6 +159,28 @@ namespace TBQuestGame.Models
         #endregion
 
         #region METHODS
+
+        #region HEALTH METHODS
+
+        /// <summary>
+        /// Method that adjusts player health based on location.
+        /// </summary>
+        /// <param name="currentLocation"></param>
+        public void CheckPlayerHealthByCombat()
+        {
+            if (Health <= 0 && Lives > 0)
+            {
+                Health = 100;
+                Lives--;
+            }
+            if (Health == 0 && Lives == 0)
+            {
+                GameViewModel.OnPlayerDie("You have fallen.");
+            }
+        
+
+        }
+
 
         /// <summary>
         /// Method that adjusts player health based on location.
@@ -193,11 +214,11 @@ namespace TBQuestGame.Models
 
             }
         }
-      
+
         /// <summary>
-       /// Method that updates player health on using an item:
-       /// </summary>
-       /// <param name="arcaneItem"></param>
+        /// Method that updates player health on using an item:
+        /// </summary>
+        /// <param name="arcaneItem"></param>
         public void CheckPlayerHealthByItem(ItemArcane arcaneItem)
         {
             if (Health < 100 && arcaneItem.HealthModifier > 0)
@@ -221,7 +242,10 @@ namespace TBQuestGame.Models
 
             }
         }
-        
+        #endregion
+
+        #region INVENTORY METHODS
+
         /// <summary>
         /// Method that adds an item to the inventory system:
         /// </summary>
@@ -253,7 +277,7 @@ namespace TBQuestGame.Models
         /// <param name="selectedGameItemQuantity"></param>
         public void RemoveGameItemFromInventory(GameItemQuantity selectedGameItemQuantity)
         {
-           GameItemQuantity gameItemQuantity = _inventory.FirstOrDefault(i => i.GameItem.ItemId == selectedGameItemQuantity.GameItem.ItemId);
+            GameItemQuantity gameItemQuantity = _inventory.FirstOrDefault(i => i.GameItem.ItemId == selectedGameItemQuantity.GameItem.ItemId);
 
             // The item isn't in the inventory yet, so we need to add it as a new quantity.
             if (gameItemQuantity != null)
@@ -307,32 +331,70 @@ namespace TBQuestGame.Models
 
             foreach (var item in _inventory)
             {
-              Wealth += (item.GameItem.ItemValue * item.Quantity);
+                Wealth += (item.GameItem.ItemValue * item.Quantity);
             }
         }
+        #endregion
 
         /// <summary>
         /// Controls battle based on current stance.
         /// </summary>
         /// <param name="Stance"></param>
-        public void CycleBattleRound(BattleStance Stance)
+        public void SetStanceModifier(Ifight attacker, Ifight defender)
         {
+            ItemWeapon attackerWeapon = attacker.EquippedWeapon as ItemWeapon;
+            ItemArmor attackerArmor = attacker.EquippedArmor as ItemArmor;
+            ItemArmor defenderArmor = defender.EquippedArmor as ItemArmor;
+
+            double damage = 0;
+            int healthModifier;
+
             switch (Stance)
             {
                 case BattleStance.ATTACK:
-                    
+                    if (attackerWeapon.WeaponDamageType == defenderArmor.ArmorResistanceType)
+                    {
+                        damage = Math.Round(attackerWeapon.WeaponDamageAmount * defenderArmor.ArmorResistModifier);
+                    }
+                    else
+                    {
+                        damage = attackerWeapon.WeaponDamageAmount;
+                    }
                     break;
                 case BattleStance.DEFEND:
-                    
+                    damage = 0;
                     break;
                 case BattleStance.FLEE:
-                    GameViewModel.OnPlayerFlee();
+                    //GameViewModel.OnPlayerFlee();
+                    damage = 0;
                     break;
                 default:
                     break;
             }
+
+            NPC defenderHealth = defender as NPC;
+
+            healthModifier = (int)damage;
+
+            defenderHealth.Health = defenderHealth.Health - healthModifier;
+            // Temporary: To be moved to a method in the Fighter NPC
+            switch (healthModifier)
+            {
+                case 0:
+                    defender.Stance = BattleStance.ATTACK;
+                    break;
+                case 35:
+                    defender.Stance = BattleStance.DEFEND;
+                    break;
+                case 50:
+                    defender.Stance = BattleStance.FLEE;
+                    break;
+                default:
+                    break;
+            }
+
         }
- 
+
 
         #endregion
 

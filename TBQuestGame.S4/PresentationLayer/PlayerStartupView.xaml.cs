@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TBQuestGame.Models;
+using TBQuestGame.DataLayer;
 
 namespace TBQuestGame.PresentationLayer
 {
@@ -27,20 +28,15 @@ namespace TBQuestGame.PresentationLayer
             _player = player;
 
             InitializeComponent();
-
-            SetupWindow();
+            
+            SetupWindow(GameData.PopulateRaceBox(), GameData.PopulateGenderBox(), GameData.PopulateRoleBox());
         }
 
         /// <summary>
-        /// Geneerates the lists used to populate the combo boxes.
+        /// Generates the lists used to populate the combo boxes.
         /// </summary>
-        private void SetupWindow()
+        private void SetupWindow(List<string> races, List<string>gender, List<string> role)
         {
-            // Creating data for the dropboxes:
-
-            List<string> races = Enum.GetNames(typeof(Player.RaceType)).ToList();
-            List<string> gender = Enum.GetNames(typeof(Player.PlayerGender)).ToList();
-            List<string> role = Enum.GetNames(typeof(Player.PlayerRole)).ToList();
             cb_RaceBox.ItemsSource = races;
             cb_GenderBox.ItemsSource = gender;
             cb_RoleBox.ItemsSource = role;
@@ -49,12 +45,6 @@ namespace TBQuestGame.PresentationLayer
             ErrorMessageTextBlock.Visibility = Visibility.Hidden;
 
 
-        }
-
-
-        private void btn_exit_Click(object sender, RoutedEventArgs e)
-        {
-           // Not implimented yet - will call the close method eventually.
         }
 
         private void btn_input_Click(object sender, RoutedEventArgs e)

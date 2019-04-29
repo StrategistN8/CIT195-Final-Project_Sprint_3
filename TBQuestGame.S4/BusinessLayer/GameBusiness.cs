@@ -119,7 +119,8 @@ namespace TBQuestGame.BusinessLayer
             gameSessionView.Show();
 
             // Closes the set-up window if open.
-           //_playerSetupView.Close();
+            //_playerSetupView.Close();
+            
         }
         #endregion
     }

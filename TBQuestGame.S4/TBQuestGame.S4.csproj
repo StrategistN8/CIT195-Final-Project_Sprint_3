@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Tale of Monger2.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -84,7 +87,9 @@
     <Compile Include="Models\GameItem.cs" />
     <Compile Include="Models\GameItemQuantity.cs" />
     <Compile Include="Models\Ifight.cs" />
-    <Compile Include="Models\Imerchant.cs" />
+    <Compile Include="Models\Irecruit.cs" />
+    <Compile Include="Models\Ispeak.cs" />
+    <Compile Include="Models\Itrade.cs" />
     <Compile Include="Models\ItemArcane.cs" />
     <Compile Include="Models\ItemArmor.cs" />
     <Compile Include="Models\ItemInventory.cs" />
@@ -136,6 +141,34 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Art\SmashedWagon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Art\MongerA.png" />
+    <Resource Include="Art\Keeper.png" />
+    <Resource Include="Art\Thalmos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Art\MongerThumb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Art\MongerB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Art\Old-Parchment-Texture.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Tale of Monger.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Tale of Monger2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Art\PrimalB.png" />
+    <Resource Include="Art\PrimalC.png" />
+    <Resource Include="Art\ThalmosA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Art\MongerWoods.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

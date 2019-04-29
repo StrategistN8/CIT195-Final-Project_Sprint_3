@@ -133,7 +133,14 @@
             </Setter>
             
         </Style>
-        
+        <Style x:Key="InfoStackPannelStyle" TargetType="StackPanel">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="../Art/MongerWoods.png" Stretch="Fill"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+               
     </Window.Resources>
 
 <!-- Primary Grid -->
@@ -278,7 +285,7 @@
                     x:Name="ErrorMessageTextBlock"
                     Height="150"
                     Width="350"
-                    Foreground="BlueViolet"/>
+                    Foreground="Orange"/>
 
                 <StackPanel
                     Orientation="Horizontal"

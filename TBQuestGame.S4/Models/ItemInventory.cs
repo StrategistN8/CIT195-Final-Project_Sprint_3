@@ -13,8 +13,7 @@ namespace TBQuestGame.Models
         #endregion
 
         #region FIELDS
-
-
+   
         #endregion
 
         #region PROPERTIES
