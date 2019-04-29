@@ -248,7 +248,7 @@
                         SelectedItem="{Binding CurrentLocationName}"
                         Style="{StaticResource MasterListboxStyle}"
                         Width="250"
-                        MaxHeight="150">
+                        MaxHeight="75">
                     </ListBox>
                 </Grid>
 

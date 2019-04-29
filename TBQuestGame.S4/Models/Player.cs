@@ -181,7 +181,6 @@ namespace TBQuestGame.Models
 
         }
 
-
         /// <summary>
         /// Method that adjusts player health based on location.
         /// </summary>

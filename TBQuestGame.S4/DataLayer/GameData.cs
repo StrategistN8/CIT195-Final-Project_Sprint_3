@@ -61,8 +61,8 @@ namespace TBQuestGame.DataLayer
             Map caravanMap = new Map();
             caravanMap.MapLocations.Add(
 
-                // Monger Lair
-                new Location()
+            // Monger Lair
+            new Location()
                 {
 
                     LocationId = 13,
@@ -82,7 +82,7 @@ namespace TBQuestGame.DataLayer
                         //new GameItemQuantity(GetGameItemById(4000),1)
                     }
                 }
-                );
+            );
 
             // Umbruk's Wagon: Starting Area
             caravanMap.MapLocations.Add(
@@ -101,7 +101,7 @@ namespace TBQuestGame.DataLayer
                 HealthModifier = 0,
                 LocationNPCs = new ObservableCollection<NPC>
                 {
-                   GetNPCById(1) 
+                   //GetNPCById(1)
                 },
                 LocationInventory = new ObservableCollection<GameItemQuantity>
                 {
@@ -176,13 +176,13 @@ namespace TBQuestGame.DataLayer
                     GameData.GetNPCById(3),
                     GameData.GetNPCById(4),
                     GameData.GetNPCById(5),
-                    
+
                 },
                 LocationInventory = new ObservableCollection<GameItemQuantity>
                 {
                     new GameItemQuantity(GetGameItemById(3001), 3),
                     new GameItemQuantity(GetGameItemById(4001),1),
-                    
+
                 }
 
             }
@@ -331,7 +331,7 @@ namespace TBQuestGame.DataLayer
 
 
             return races;
-            
+
         }
 
         public static List<string> PopulateGenderBox()
@@ -339,7 +339,7 @@ namespace TBQuestGame.DataLayer
             List<string> gender = Enum.GetNames(typeof(Player.PlayerGender)).ToList();
             return gender;
         }
-        
+
         public static List<string> PopulateRoleBox()
         {
             List<string> role = Enum.GetNames(typeof(Player.PlayerRole)).ToList();

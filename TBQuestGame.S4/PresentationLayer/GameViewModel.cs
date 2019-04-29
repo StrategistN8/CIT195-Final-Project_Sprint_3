@@ -143,7 +143,7 @@ namespace TBQuestGame.PresentationLayer
             _messages = initialMessages;
             _gameMap = gameMap;
             _currentLocation = gameMap.CurrentMapLocation;
-            _currentNPC = _currentLocation.LocationNPCs.First(n => n.Id >= 1);
+           // _currentNPC = _currentLocation.LocationNPCs.First(n => n.Id >= 1);
             _accessibleLocations = new ObservableCollection<Location>();
 
             InitializeView();
@@ -199,7 +199,7 @@ namespace TBQuestGame.PresentationLayer
                 _currentLocation.AddGameItemToInventory(selectedGameItemQuantity);
                 _player.RemoveGameItemFromInventory(selectedGameItemQuantity);
 
-                OnPlayerPutDown(selectedGameItemQuantity);
+                // OnPlayerPutDown(selectedGameItemQuantity);
             }
         }
 

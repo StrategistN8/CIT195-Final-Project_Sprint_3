@@ -16,7 +16,7 @@ namespace TBQuestGame.BusinessLayer
         #region FIELDS
 
         private GameViewModel _gameSessionViewModel;
-        private bool _newPlayer = false; // Disable For testing - re-enable when done.
+        private bool _newPlayer = true; // Disable For testing - re-enable when done.
         protected Player _player = new Player();
         private PlayerStartupView _playerSetupView;
         private List<string> _messages;
@@ -119,7 +119,7 @@ namespace TBQuestGame.BusinessLayer
             gameSessionView.Show();
 
             // Closes the set-up window if open.
-            //_playerSetupView.Close();
+            _playerSetupView.Close();
             
         }
         #endregion
